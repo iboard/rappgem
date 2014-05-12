@@ -46,20 +46,46 @@ describe Rappgem do
 
         subject(:request) { app.build_request( self, :ping, "pong" ) }
 
-        it "create a Response object on .handle_request(request)" do
+        it "creates a Response object on .handle_request(request)" do
           response = app.handle_request(request)
           expect( response ).to be_a ApplicationProtocol::Response
         end
 
-        it "handles the request through the app" do
+        it "implements the default 'ping'-usecase" do
           response = app.handle_request(request)
           expect( response.message ).to eq( "pong" )
         end
 
-        it "fails with unknown command" do
+        it "reports an error if command not handled by usecase" do
           request  = app.build_request( self, :unknown_request, "something" )
           response = app.handle_request(request)
           expect( response.errors.first).to be_a( ApplicationProtocolError )
+        end
+
+        describe "Individual usecase" do
+
+          class MyUsecase < Usecase
+            def response
+              if @request.command == :my_case
+                ApplicationProtocol::Response.new( message: "MY USECASE #{@request.command} WITH #{@request.params}")
+              else
+                super
+              end
+            end
+          end
+
+          subject(:request)  { app.build_request( self, :my_case, "some", "parameter" ) }
+          subject(:response) { app.handle_request(request) do MyUsecase.new( request ) end }
+
+          it "uses MyUsecase to create response" do
+            expect(response.message).to match /MY USECASE my_case WITH .*some.*parameter/
+          end
+
+          it "delegates unknown requests to baseclass" do
+            request = app.build_request( self, :ping, "pong" )
+            response= app.handle_request(request) do MyUsecase.new(request) end
+            expect(response.message).to eq("pong")
+          end
         end
       end
 

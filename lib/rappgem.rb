@@ -1,20 +1,31 @@
 require "rappgem/version"
 
 $LOAD_PATH.unshift( File.expand_path("../rappgem/app",__FILE__) )
+$LOAD_PATH.unshift( File.expand_path("../rappgem/usecases",__FILE__) )
 require "application_factory"
 require "base_application"
 require "terminal_application"
+require "standard_usecases"
 
 
 # == Rappgem
 #
-# Rappgem is an application-architecture for your ruby application.
-# It is implemented as a singleton module named _ApplicationFactory_
-# and depends on class _BaseApplication_ which is responsible to take
-# care of application-global stuff.
+# Rappgem is a gem, aimed to support your application-architecture.
+# It can be used with any ruby-application. In a Sinatra-app, a Rails-App,
+# even your NCurses-application, or anything else based on ruby.
 #
-# @see BaseApplication
+# It is implemented as a singleton module named _ApplicationFactory_
+# and implements classes like
+#
+# * _BaseApplication_, _TerminalApplication_, _SinatraApplication_, ...
+# * _Usecase_
+#
+# The module _ApplicationProtocol_ implements classes like
+#
+# * _Request_, _Response_
+#
 # @see ApplicationFactory
+# @see ApplicationProtocol
 #
 # @example
 #     app = ApplicationFactory( MyApp.instance, *ARGS )

@@ -3,6 +3,7 @@
 # Load the application
 
 $LOAD_PATH.unshift( File.expand_path("../../lib", __FILE__ ) )
+require 'rspec/given'
 require "rappgem"
 
 RSpec.configure do |config|

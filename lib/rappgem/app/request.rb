@@ -2,17 +2,18 @@ module Rappgem
   module Application
     module ApplicationProtocol
 
-      # Base implementation of a request
+      # Base implementation of a request. The class Request defines a command and parameters.
+      # @see ApplicationProtocol
       class Request
 
         # @param [Symbol] command
-        # @param [Array] params - additional params
+        # @param [Array] params - additional parameters
         def initialize command, *params
           @command = command
           @params  = params.first
         end
 
-        # @return [Array] of given parameters
+        # @return [Array]
         def params
           @params
         end

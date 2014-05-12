@@ -4,7 +4,9 @@ require "response"
 require "usecase"
 
 module Rappgem
-  # The application protocol
+
+  # The module implements the application protocol, and the classes
+  # Request, Response, and Usecase.
   module Application
 
     # Thrown in case of a protocol error
@@ -12,16 +14,15 @@ module Rappgem
 
     # == Implement Application behavior
     #
-    # === Hard coded commands
+    # === Hard coded commands (Defined in base class Usecase)
     #
     # **ping** arg
     #
     # responds with 'arg'
     #
-    # === Soft coded commands
+    # === Soft coded commands (Defined by your individual descendants of Usecase)
     #
-    # If your descendant from BaseApplication implements the given command
-    # as a public_method, this method will be called by the application-protocol.
+    # see examples
     #
     # @example
     #
@@ -31,28 +32,31 @@ module Rappgem
     #    resp= app.handle_request(req)
     #    resp.message #=> "Hello World"
     #
-    #    # implementing your own command
-    #    class MyApp < BaseApplication
-    #      def say_hello request
-    #        OpenStruct.new( message: "Hello, #{request.options.first}" )
+    #    # implementing your own usecases
+    #    class MyUsecase < Usecase
+    #      def response
+    #        # do something with @request
+    #        Response.new( ...build your response... )
     #      end
     #    end
     #
-    #    req = app.build_request( self, say_hello: "the world" )
-    #    resp= app.handle_request(req)
-    #    resp.message #=> "Hello, the world"
+    #    # and handle the request with your usecase
+    #    response = app.handle_request( req ) do
+    #      MyUsecase.new( req )
+    #    end
+    #
     module ApplicationProtocol
 
       def self.included base
         base.send( :include,  InstanceMethods )
       end
 
-      # Methods added to any Application object
+      # Methods added to the Application instance
       module InstanceMethods
 
         # @param [Object] context the calling object
         # @param [Array] options additional options
-        # @yield [Symbol, Array] command | params
+        # @yield [Symbol, Array] command | params must return a Request object
         # @return [Rappapp::Application::Request]
         def build_request context, *options
           @context = context
@@ -61,16 +65,19 @@ module Rappgem
         end
 
         # @param [Request] request
-        # @yield [request]
+        # @yield [Request] block must return a @Usecase object if given
         # @return [Usecase]
         def build_usecase request
           block_given? ?  yield(request) : Usecase.new( request )
         end
 
+        # Create the usecase-object and return it's response
         # @param [Rappapp::Application::Request] request
+        # @yield [Request] block must return a Usecase-object if given.
+        #                  Otherwise a base Usecase is instantiated.
         # @return [Rappapp::Application::Usecase]
-        def handle_request request
-          usecase = block_given? ? yield(request) : build_usecase(request)
+        def handle_request request, &block
+          usecase = build_usecase( request, &block )
           usecase.response
         end
 
