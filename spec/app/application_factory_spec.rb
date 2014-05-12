@@ -23,8 +23,9 @@ describe Rappgem do
       end
 
       it "is a Singleton instance" do
-        bpp = ApplicationFactory.app
-        expect(bpp === app).to be_true
+        a = app
+        b = ApplicationFactory.app
+        expect(b === a).to be_true
       end
 
       it "args are immutable" do
