@@ -61,6 +61,14 @@ Or install it yourself as:
 See `spec/app/application_factory_spec.rb` and any other spec-file for
 details.
 
+## TODO
+
+This gem has not been finished yet. Next steps are:
+
+  * Implement a command-queue for BaseApplication and TerminalApplication
+  * Implement a Terminal-Example
+  * Implement a Sinatra-Example
+  * Implement a RAILS-Example
 
 ## Development
 
