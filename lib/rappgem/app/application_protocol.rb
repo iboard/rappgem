@@ -1,6 +1,7 @@
 require "ostruct"
 require "request"
 require "response"
+require "usecase"
 
 module Rappgem
   # The application protocol
@@ -56,29 +57,21 @@ module Rappgem
         def build_request context, *options
           @context = context
           command, *params = *options
-          if block_given?
-            yield(command, params)
-          else
-            Request.new( command, params )
-          end
+          block_given? ?  yield(command, params) : Request.new( command, params )
+        end
+
+        # @param [Request] request
+        # @yield [request]
+        # @return [Usecase]
+        def build_usecase request
+          block_given? ?  yield(request) : Usecase.new( request )
         end
 
         # @param [Rappapp::Application::Request] request
-        # @return [Rappapp::Application::Interactor]
+        # @return [Rappapp::Application::Usecase]
         def handle_request request
-          command = request.command
-          params  = request.params.first
-          msg = case command
-                when :ping
-                  params
-                else
-                  fail ApplicationProtocolError.new("unknown command #{command}(#{params}) in #{request}")
-                end
-          if block_given?
-            yield( request, command, params, msg )
-          else
-            ApplicationProtocol::Response.new( msg )
-          end
+          usecase = block_given? ? yield(request) : build_usecase(request)
+          usecase.response
         end
 
       end

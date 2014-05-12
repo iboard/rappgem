@@ -4,10 +4,13 @@ module Rappgem
 
       # Base implementation of a response
       class Response
+        attr_reader :errors
 
         # @param [Array] options
         def initialize *options
-          @message = options.first
+          @options = options.first
+          @message = @options.fetch(:message) { "" }
+          @errors  = @options.fetch(:errors)  { [] }
         end
 
         # @return [String]
