@@ -4,6 +4,8 @@ require "request"
 module Rappgem
   # The application protocol
   module Application
+
+    # Thrown in case of a protocol error
     class ApplicationProtocolError < RuntimeError; end
 
     # == Implement Application behavior
@@ -43,6 +45,7 @@ module Rappgem
         base.send( :include,  InstanceMethods )
       end
 
+      # Methods added to any Application object
       module InstanceMethods
 
         # @param [Object] context the calling object
