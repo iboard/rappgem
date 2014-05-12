@@ -51,6 +51,7 @@ module Rappgem
 
         # @param [Object] context the calling object
         # @param [Array] options additional options
+        # @yield [Symbol, Array] command | params
         # @return [Rappapp::Application::Request]
         def build_request context, *options
           @context = context
