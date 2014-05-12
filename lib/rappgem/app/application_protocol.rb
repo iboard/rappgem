@@ -1,4 +1,5 @@
 require "ostruct"
+require "request"
 
 module Rappgem
   # The application protocol
@@ -49,17 +50,22 @@ module Rappgem
         # @return [Rappapp::Application::Request]
         def build_request context, *options
           @context = context
-          OpenStruct.new( options: options.first )
+          command, *params = *options
+          if block_given?
+            yield(command, params)
+          else
+            Request.new( command, params )
+          end
         end
 
         # @param [Rappapp::Application::Request] request
         # @return [Rappapp::Application::Interactor]
         def handle_request request
-          options = request.options
-          command, *params = options.first
+          command = request.command
+          params  = request.params.first
           msg = case command
                 when :ping
-                  params.first
+                  params
                 else
                   fail ApplicationProtocolError.new("unknown command #{command}(#{params}) in #{request}")
                 end
