@@ -1,8 +1,9 @@
 require "rappgem/version"
 
-require "rappgem/app/application_factory"
-require "rappgem/app/base_application"
-require "rappgem/app/terminal_application"
+$LOAD_PATH.unshift( File.expand_path("../rappgem/app",__FILE__) )
+require "application_factory"
+require "base_application"
+require "terminal_application"
 
 
 # == Rappgem

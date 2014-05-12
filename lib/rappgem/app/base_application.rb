@@ -1,4 +1,5 @@
 require "singleton"
+require "application_protocol"
 
 module Rappgem
 
@@ -14,6 +15,8 @@ module Rappgem
     # Application-class.
     class BaseApplication
       include Singleton
+      include ApplicationProtocol
+
       attr_reader :args
 
       def initialize *args
