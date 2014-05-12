@@ -23,6 +23,11 @@ describe Rappgem do
         expect( request.command ).to eq( :ping )
       end
 
+      it "expects an Response object" do
+        response = app.handle_request(request)
+        expect( response ).to be_a ApplicationProtocol::Response
+      end
+
       it "handles the request" do
         response = app.handle_request(request)
         expect( response.message ).to eq( "pong" )

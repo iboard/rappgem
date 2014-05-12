@@ -1,5 +1,6 @@
 require "ostruct"
 require "request"
+require "response"
 
 module Rappgem
   # The application protocol
@@ -72,7 +73,11 @@ module Rappgem
                 else
                   fail ApplicationProtocolError.new("unknown command #{command}(#{params}) in #{request}")
                 end
-          OpenStruct.new( message: msg )
+          if block_given?
+            yield( request, command, params, msg )
+          else
+            ApplicationProtocol::Response.new( msg )
+          end
         end
 
       end
