@@ -21,7 +21,9 @@ Or install it yourself as:
 
 ## Usage
 
-### Example
+### Examples
+
+#### Simple
 
     class MyApp < BaseApplication
       def run *_opts
@@ -31,6 +33,30 @@ Or install it yourself as:
 
     app = ApplicationFactory.app( MyApp.intance, "-v" )
     app.run #=> "Hello World"
+
+#### Complete with individual Usecase
+
+    # implementing your own usecases
+    class MyUsecase < Usecase
+      def response
+        # do something with @request
+        Response.new(message:"...build your response...")
+      end
+    end
+
+    # instantiate the application
+    app = ApplicationFactory.app( BaseApplication.instance )
+
+    # build the request
+    request = app.build_request( self, :command_name, params)
+
+    # and handle the request with your usecase
+    response = app.handle_request( req ) do
+      MyUsecase.new( req )
+    end
+
+    response.message # => "...build your response..."
+
 
 See `spec/app/application_factory_spec.rb` and any other spec-file for
 details.
