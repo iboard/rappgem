@@ -70,6 +70,10 @@ This gem has not been finished yet. Next steps are:
   * Implement a Sinatra-Example
   * Implement a RAILS-Example
 
+### Draft how a TerminalApplication can work
+
+![Image 1: Terminal Application - Draft](http://dav.iboard.cc/container/rappgem/Img001-terminal-application.jpg)
+
 ## Development
 
 ### rake – TDD
