@@ -76,8 +76,8 @@ This gem has not been finished yet. Next steps are:
 
 ### The idea behind
 
-<div>
-  <iframe width="560" height="315"
+[Jim Weirich Talk](http="//www.youtube.com/embed/tg5RFeSfBM4")
+<div><iframe width="560" height="315"
     src="//www.youtube.com/embed/tg5RFeSfBM4"
     frameborder="0" allowfullscreen>
   </iframe>
