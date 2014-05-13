@@ -41,15 +41,11 @@ module Rappgem
 
       private
       def command_to_usecase _command
-        case _command
-        when 'ping', 'date'
+        begin
+          usecase_class = eval( _command.to_s )
+          usecase_class.ancestors.include?(Usecase) ? usecase_class : Usecase
+        rescue
           Usecase
-        else
-          begin
-            eval( _command.to_s )
-          rescue
-            Usecase
-          end
         end
       end
     end
