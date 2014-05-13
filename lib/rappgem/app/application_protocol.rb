@@ -65,10 +65,11 @@ module Rappgem
         end
 
         # @param [Request] request
+        # @param [Class] usecase_class
         # @yield [Request] block must return a @Usecase object if given
         # @return [Usecase]
-        def build_usecase request
-          block_given? ?  yield(request) : Usecase.new( request )
+        def build_usecase request, usecase_class
+          block_given? ?  yield(request) : usecase_class.new( request )
         end
 
         # Create the usecase-object and return it's response
@@ -76,8 +77,8 @@ module Rappgem
         # @yield [Request] block must return a Usecase-object if given.
         #                  Otherwise a base Usecase is instantiated.
         # @return [Rappapp::Application::Usecase]
-        def handle_request request, &block
-          usecase = build_usecase( request, &block )
+        def handle_request request, usecase=Usecase, &block
+          usecase = build_usecase( request, usecase, &block )
           usecase.response
         end
 
