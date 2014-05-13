@@ -52,23 +52,37 @@ module Rappgem
       #     response1.message # => "X1"
       # @return [Response]
       def response
-        message = case @request.command
-                  when :ping
-                    @request.params.first
-                  else
-                    @errors.push(
-                      ApplicationProtocolError.new("Unknown command #{@request.inspect}")
-                    )
-                    "ERROR"
-                  end
-        ApplicationProtocol::Response.new( message: message, errors: @errors )
+        @response ||= run
       end
+
+      # Rerun and respond
+      # @return [Response]
+      def response!
+        @response = nil
+        response
+      end
+
+
 
       # @return [Boolean] true if any errors occured yet
       def errors?
         !@errors.empty?
       end
 
+      private
+      def run
+        message = case @request.command
+                   when :ping
+                     @request.params.first
+                   else
+                     @errors.push(
+                       ApplicationProtocolError.new("Unknown command #{@request.inspect}")
+                     )
+                     "ERROR"
+                   end
+        @object = message
+        ApplicationProtocol::Response.new( message: message, errors: @errors, object: @object )
+      end
     end
   end
 end
