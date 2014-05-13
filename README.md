@@ -74,6 +74,10 @@ This gem has not been finished yet. Next steps are:
 
 ![Image 1: Terminal Application - Draft](http://dav.iboard.cc/container/rappgem/Img001-terminal-application.jpg)
 
+### The idea behind
+
+<iframe width="560" height="315" src="//www.youtube.com/embed/tg5RFeSfBM4" frameborder="0" allowfullscreen></iframe>
+
 ## Development
 
 ### rake – TDD
