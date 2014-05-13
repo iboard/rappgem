@@ -2,20 +2,29 @@
 #
 # People/Person to test a Post-Usecase
 # Define something to work with
-class People #################### A Collection
+
+# Define a Collection
+class People
   include Singleton
   def initialize
     @people = []
   end
-  def push item ################# With a push method
+  # Usecase expects a push-method
+  def push item
     @people.push item
   end
-  def all ####################### Read entries
+  # Test expects a all-method
+  def all
     @people
   end
 end
-class Person < OpenStruct;  end # Some object to store
-module Application ############## Define the usecase
+
+# A simple OpenStruct is enough for our spec
+class Person < OpenStruct;  end
+
+# Define the Usecase
+module Application
+  # Create an object of class :object and add it to :collection
   class PostObject < Usecase
     def response
       _object = @request.params[:object].new( @request.params[:params] )
