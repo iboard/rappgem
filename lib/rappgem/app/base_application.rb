@@ -55,6 +55,14 @@ module Rappgem
       def to_s
         "#{self.class.to_s}::<#{object_id}> Args: #{args}"
       end
+
+      def output
+        raise RuntimeError, "#output is an abstract method on BaseApplication"
+      end
+
+      def next_input
+        raise RuntimeError, "#next_input is an abstract method on BaseApplication"
+      end
     end
 
   end

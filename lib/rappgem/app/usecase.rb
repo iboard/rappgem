@@ -74,6 +74,9 @@ module Rappgem
         message = case @request.command
                    when :ping
                      @request.params.first
+                   when :date
+                     @object = Time.now
+                     "#{@object}"
                    else
                      @errors.push(
                        ApplicationProtocolError.new("Unknown command #{@request.inspect}")
