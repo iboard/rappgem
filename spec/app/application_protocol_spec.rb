@@ -64,7 +64,7 @@ describe Rappgem do
 
         describe "Individual usecase" do
 
-          class MyUsecase < Usecase
+          class MyPongUsecase < Usecase
             def response
               if @request.command == :my_case
                 ApplicationProtocol::Response.new( message: "MY USECASE #{@request.command} WITH #{@request.params}")
@@ -75,7 +75,7 @@ describe Rappgem do
           end
 
           subject(:request)  { app.build_request( self, :my_case, "some", "parameter" ) }
-          subject(:response) { app.handle_request(request) do MyUsecase.new( request ) end }
+          subject(:response) { app.handle_request(request) do MyPongUsecase.new( request ) end }
 
           it "uses MyUsecase to create response" do
             expect(response.message).to match /MY USECASE my_case WITH .*some.*parameter/
@@ -83,7 +83,7 @@ describe Rappgem do
 
           it "delegates unknown requests to baseclass" do
             request = app.build_request( self, :ping, "pong" )
-            response= app.handle_request(request) do MyUsecase.new(request) end
+            response= app.handle_request(request) do MyPongUsecase.new(request) end
             expect(response.message).to eq("pong")
           end
         end

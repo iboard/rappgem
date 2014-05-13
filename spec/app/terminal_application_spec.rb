@@ -33,6 +33,23 @@ describe Rappgem do
         app.run
       end
 
+      it "handles individual usecases" do
+        class MyIndividualUsecase < Usecase
+          def run
+            Response.new( message: "My Usecase", object: @request, errors: [] )
+          end
+        end
+
+        commands = ["ping pong", "MyIndividualUsecase", "quit"]
+        STDIN.stub(:gets).and_return { commands.shift }
+
+        expect( STDOUT ).to receive(:puts).once.with("pong")
+        expect( STDOUT ).to receive(:puts).once.with("My Usecase")
+        expect( STDOUT ).to receive(:puts).once.with(/Terminal/)
+        expect( STDOUT ).to receive(:printf).exactly(3).times.with(">")
+        app.run
+      end
+
     end
 
   end

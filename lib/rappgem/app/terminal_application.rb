@@ -12,7 +12,8 @@ module Rappgem
         s = super
         next_input do |command, parts|
           break if command == "quit"
-          response = handle_request( Request.new( command.to_sym, parts ) )
+          usecase_class = command_to_usecase(command)
+          response = handle_request( Request.new( command.to_sym, parts ), usecase_class )
           output response.errors.join(", ") if response.errors?
           output response.message
         end
@@ -34,6 +35,20 @@ module Rappgem
             parts = line.split(/\s+/).map(&:strip)
             command = parts.shift
             yield(command,parts)
+          end
+        end
+      end
+
+      private
+      def command_to_usecase _command
+        case _command
+        when 'ping', 'date'
+          Usecase
+        else
+          begin
+            eval( _command.to_s )
+          rescue
+            Usecase
           end
         end
       end
