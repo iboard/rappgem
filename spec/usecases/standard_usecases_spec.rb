@@ -20,7 +20,7 @@ describe "Usecases" do
   end
 
   describe "Individual Usecases (examples)" do
-    describe "Post to a repository (spec/helpers/people.rb)" do
+    describe "Post to a repository (spec/fixtures/people.rb)" do
       Given(:request) {
         Request.new( :post,
           collection: People, object: Person,
