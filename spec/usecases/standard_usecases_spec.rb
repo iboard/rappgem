@@ -23,13 +23,14 @@ describe "Usecases" do
     describe "Post to a repository (spec/fixtures/people.rb)" do
       Given(:request) {
         Request.new( :post,
-          collection: People, object: Person,
-          params: { name: "Frank" }
+          collection: People,
+          object: Person, params: { name: "Frank", kind: "Artist" }
         )
       }
       When(:response) { app.handle_request(request, PostObject) }
       Then  { expect( response.object ).to be_a(Person) }
       And   { expect( response.object.name ).to eq("Frank") }
+      And   { expect( response.object.kind ).to eq("Artist") }
       And   { expect( People.instance.all.count).to eq(1) }
     end
   end
