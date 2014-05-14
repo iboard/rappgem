@@ -20,6 +20,10 @@ module Rappgem
           @message
         end
 
+        def errors?
+          !@errors.empty?
+        end
+
         # @return (String)
         def to_s
           self.message

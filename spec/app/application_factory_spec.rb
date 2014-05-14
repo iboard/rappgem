@@ -1,9 +1,8 @@
 require "spec_helper"
+include ApplicationProtocol
+
 describe Rappgem do
-
   describe ApplicationFactory do
-
-
     describe BaseApplication do
 
       # In production code there can be one instance of a dedicated descendent
@@ -60,25 +59,6 @@ describe Rappgem do
         end
 
       end
-    end
-
-    describe TerminalApplication do
-
-      before :all do
-        ApplicationFactory.reset_app
-      end
-
-      subject(:app) { ApplicationFactory.app(TerminalApplication.instance, "-v") }
-
-      it "is a TerminalApplication" do
-        expect( app ).to be_a(TerminalApplication)
-      end
-
-      it ".run() outputs to stdout" do
-        expect( STDOUT ).to receive(:puts).with( /Args:.+\-v/ )
-        app.run
-      end
-
     end
 
   end

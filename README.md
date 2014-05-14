@@ -85,6 +85,25 @@ This gem has not been finished yet. Next steps are:
   * Implement a Terminal-Example
   * Implement a RAILS-Example
 
+### Use Terminal Application with _irb_
+
+     $ irb -Ilib
+     ruby 2.1.0p0 (2013-12-25 revision 44422) [x86_64-darwin12.0]
+     irb(main):001:0> require "rappgem"
+     true
+     irb(main):002:0> include Rappgem
+     Object
+     irb(main):003:0> app = ApplicationFactory.app( TerminalApplication.instance )
+     #<Rappgem::Application::TerminalApplication:0x000001018a0d70 @args=[]>
+     irb(main):004:0> app.run
+     >ping pong
+     pong
+     >date
+     2014-05-13 21:56:48 +0200
+     >quit
+     Rappgem::Application::TerminalApplication::<2160395960> Args: []
+     nil
+
 ### Draft how a TerminalApplication could work
 
 ![Image 1: Terminal Application - Draft](http://dav.iboard.cc/container/rappgem/Img001-terminal-application.jpg)
