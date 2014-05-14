@@ -1,10 +1,10 @@
-source 'https://rubygems.org'
 
-# Specify your gem's dependencies in rappgem.gemspec
-gemspec
+source 'https://rubygems.org'
 
 gem 'sinatra-assetpack'
 gem 'sinatra-support'
+
+gem 'rappgem', path: "../../"
 
 group :development, :test do
   gem 'rspec-given'

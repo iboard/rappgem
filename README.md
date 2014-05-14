@@ -61,13 +61,28 @@ Or install it yourself as:
 See `spec/app/application_factory_spec.rb` and any other spec-file for
 details.
 
+## Sinatra Example
+
+There is an example of a basic Sinatra-applicaton using Rappgem.
+You can run the test-suite of this app by
+
+    rake sinatra
+
+To run the application
+
+    cd examples/sinatra
+    ruby app.rb
+
+Visit "http://0.0.0.0:4567" while the app is running.
+Press Ctrl+C to stop the server-app.
+
+
 ## TODO
 
 This gem has not been finished yet. Next steps are:
 
   * Implement a command-queue for BaseApplication and TerminalApplication
   * Implement a Terminal-Example
-  * Implement a Sinatra-Example
   * Implement a RAILS-Example
 
 ### Draft how a TerminalApplication could work
