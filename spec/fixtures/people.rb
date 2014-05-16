@@ -27,8 +27,9 @@ module Application
   # Create an object of class :object and add it to :collection
   class PostObject < Usecase
     def response
-      _object = @request.params[:object].new( @request.params[:params] )
-      _collection = @request.params[:collection].instance
+      _p = @request.params.first
+      _object = _p[:object].new( _p[:params] )
+      _collection = _p[:collection].instance
       _collection.push _object
       ApplicationProtocol::Response.new( object: _object, message: "Object #{_object} created" )
     end

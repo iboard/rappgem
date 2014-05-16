@@ -10,7 +10,7 @@ module Rappgem
         # @param [Array] params - additional parameters
         def initialize command, *params
           @command = command
-          @params  = params.first
+          @params  = params.flatten
         end
 
         # @return [Array]
