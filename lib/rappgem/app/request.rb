@@ -10,7 +10,7 @@ module Rappgem
         # @param [Array] params - additional parameters
         def initialize command, *params
           @command = command
-          @params  = params.flatten
+          @params  = prepare_params(params)
         end
 
         # @return [Array]
@@ -21,6 +21,14 @@ module Rappgem
         # @return [:symbol] the name of the given command
         def command
           @command
+        end
+
+        private
+
+        # Overwrite if you want to format params when readed
+        # eg: convert to/from json
+        def prepare_params _params
+          _params ? _params.flatten : []
         end
 
       end
