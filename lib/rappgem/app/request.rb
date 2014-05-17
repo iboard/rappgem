@@ -8,7 +8,8 @@ module Rappgem
 
         # @param [Symbol] command
         # @param [Array] params - additional parameters
-        def initialize command, *params
+        def initialize _context, command, *params
+          @context = _context
           @command = command
           @params  = prepare_params(params)
         end
@@ -21,6 +22,11 @@ module Rappgem
         # @return [:symbol] the name of the given command
         def command
           @command
+        end
+
+        # @return [Object] the object building this request or self if not available
+        def context
+          @context || self
         end
 
         private

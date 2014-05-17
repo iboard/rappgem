@@ -12,7 +12,10 @@ describe Rappgem do
 
       describe "builds any request object using a block" do
 
-        subject(:request) do app.build_request( self, :ping, "pong" ) do |cmd,params|
+        @context = self
+
+
+        subject(:request) do app.build_request( @context, :ping, "pong" ) do |cmd,params|
             OpenStruct.new( command: cmd, params: params )
           end
         end
@@ -23,11 +26,16 @@ describe Rappgem do
           response = app.handle_request(request)
           expect( response.message ).to eq( "pong" )
         end
+
+        it "forwards the context to the request" do
+          expect( request.context ).to be(@context)
+        end
+
       end
 
       describe ApplicationProtocol::Request do
 
-        subject(:request) { app.build_request( self, :ping, "pong" ) }
+        subject(:request) { app.build_request( @context, :ping, "pong" ) }
 
         it "is a descendant from Request" do
           expect( request ).to be_a ApplicationProtocol::Request

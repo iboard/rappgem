@@ -22,7 +22,7 @@ describe "Usecases" do
   describe "Individual Usecases (examples)" do
     describe "Post to a repository (spec/fixtures/people.rb)" do
       Given(:request) {
-        Request.new( :post,
+        Request.new( self, :post,
           collection: People,
           object: Person, params: { name: "Frank", kind: "Artist" }
         )

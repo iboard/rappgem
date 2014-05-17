@@ -61,7 +61,7 @@ module Rappgem
         def build_request context, *options
           @context = context
           command, *params = *options
-          block_given? ?  yield(command, params) : Request.new( command, params )
+          block_given? ?  yield(command, params) : Request.new( context, command, params )
         end
 
         # @param [Request] request

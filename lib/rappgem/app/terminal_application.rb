@@ -13,7 +13,7 @@ module Rappgem
         next_input do |command, parts|
           break if command == "quit"
           usecase_class = command_to_usecase(command)
-          response = handle_request( Request.new( command.to_sym, parts ), usecase_class )
+          response = handle_request( Request.new( self, command.to_sym, parts ), usecase_class )
           output response.errors.join(", ") if response.errors?
           output response.message
         end
