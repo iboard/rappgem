@@ -23,7 +23,7 @@ module Rappgem
         # @example
         #   http://your.server.cc/yourapp/v1
         def url_prefix
-          @context.base_url
+          @context.host_prefix
         end
 
         # @return [:symbol] the name of the given command
