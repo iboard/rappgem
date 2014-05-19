@@ -19,6 +19,13 @@ module Rappgem
           @params
         end
 
+        # @return [String] - if it's a web-app return the starting-point url of the application
+        # @example
+        #   http://your.server.cc/yourapp/v1
+        def url_prefix
+          @context.base_url
+        end
+
         # @return [:symbol] the name of the given command
         def command
           @command
