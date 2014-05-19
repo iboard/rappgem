@@ -91,7 +91,7 @@ module Rappgem
           if block_given?
             resp = yield(resp)
           end
-          Response.new( resp )
+          Response.new( *resp )
         end
 
 
