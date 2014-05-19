@@ -86,10 +86,10 @@ module Rappgem
           resp = {
             object: usecase.build_object,
             errors: usecase.errors,
-            message: errors.any? ? "Error" : "Success"
+            message: usecase.errors? ? "Error" : "Success"
           }
           if block_given?
-            resp = yield(resp)
+            yield(resp)
           end
           Response.new( *resp )
         end
