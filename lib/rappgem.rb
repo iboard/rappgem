@@ -5,6 +5,7 @@ $LOAD_PATH.unshift( File.expand_path("../rappgem/usecases",__FILE__) )
 require "application_factory"
 require "base_application"
 require "terminal_application"
+require "sinatra_application"
 require "standard_usecases"
 
 
