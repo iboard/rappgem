@@ -10,6 +10,13 @@ module Rappgem
         @sinatra = sinatra_instance
       end
 
+
+      def run
+        ApplicationProtocol::respond_for(self) { |resp_hash|
+          resp_hash[:message]= "Exported #{object.count} tracelogs with waypoints"
+        }
+      end
+
       # Build and execute a Usecase
       # @param [Class] usecase existing Usecase-class derived from TracesUsecase
       # @param [Array] params - optional params

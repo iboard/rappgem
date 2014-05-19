@@ -82,6 +82,19 @@ module Rappgem
           usecase.response
         end
 
+        def respond_for usecase, &block
+          resp = {
+            object: usecase.build_object,
+            errors: usecase.errors,
+            message: errors.any? ? "Error" : "Success"
+          }
+          if block_given?
+            resp = yield(resp)
+          end
+          Response.new( resp )
+        end
+
+
       end
 
     end

@@ -70,6 +70,7 @@ module Rappgem
       end
 
       private
+
       def run
         message = case @request.command
                    when :ping
