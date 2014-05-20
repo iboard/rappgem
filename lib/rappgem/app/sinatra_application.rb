@@ -12,9 +12,7 @@ module Rappgem
 
 
       def run
-        ApplicationProtocol::respond_for(self) { |resp_hash|
-          resp_hash[:message]= "Exported #{object.count} tracelogs with waypoints"
-        }
+        ApplicationProtocol::respond_for(self)
       end
 
       # Build and execute a Usecase

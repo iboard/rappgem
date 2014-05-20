@@ -89,9 +89,9 @@ module Rappgem
             message: usecase.errors? ? "Error" : "Success"
           }
           if block_given?
-            yield(resp)
+            pp yield(resp)
           end
-          Response.new( *resp )
+          Response.new( resp )
         end
 
 
