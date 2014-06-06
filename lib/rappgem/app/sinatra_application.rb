@@ -1,6 +1,7 @@
 module Rappgem
   module Application
 
+    # Rappgem's router class for using Sinatra
     class SinatraApplication < BaseApplication
 
       # Set the sinatra-instance for the Application.
@@ -11,6 +12,8 @@ module Rappgem
       end
 
 
+      # Run the application and return a response-object
+      # @return [Response]
       def run
         ApplicationProtocol::respond_for(self)
       end
@@ -18,6 +21,8 @@ module Rappgem
       # Build and execute a Usecase
       # @param [Class] usecase existing Usecase-class derived from TracesUsecase
       # @param [Array] params - optional params
+      # @option params [String] resource_name
+      # @option params [String] resource_id
       # @return [Rappgem::Response]
       def execute( usecase, *params )
         respond_json(
@@ -28,22 +33,27 @@ module Rappgem
         )
       end
 
+      # Execute the GET / request
       def execute_index(params)
         find_and_execute_usecase(:index, params )
       end
 
+      # Execute the GET /:id request
       def execute_show(params)
         find_and_execute_usecase(:show, params )
       end
 
+      # Execute the Update case
       def execute_put(params)
         find_and_execute_usecase(:put, params )
       end
 
+      # Execute the Insert case
       def execute_post(params)
         find_and_execute_usecase(:post, params )
       end
 
+      # Execute the delete case
       def execute_delete(params)
         find_and_execute_usecase(:delete, params )
       end

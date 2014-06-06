@@ -82,6 +82,9 @@ module Rappgem
           usecase.response
         end
 
+        # Creates a response hash
+        # @yield [Hash] response - if given
+        # @return [Response]
         def respond_for usecase, &block
           resp = {
             object: usecase.build_object,
