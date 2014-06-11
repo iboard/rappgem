@@ -1,5 +1,9 @@
 # RappGem TODO
 
+## Missing Homework
+
+  * Complete Specs for SinatraApplication
+  * and/or remove unused code.
 
 ## Next step of architecture
 
