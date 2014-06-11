@@ -19,3 +19,11 @@ task :sinatra do
   puts "\nTEST SINATRA EXAMPLE"
   system "cd examples/sinatra && rspec -f d spec/ ; cd -"
 end
+
+desc "Build documentation and run tests in ordered mode"
+task :doc do
+  puts "\nBUILDING DOCUMENTATION"
+  system "yard"
+  puts "\nSPECS IN DEFINED ORDER"
+  system "rspec -fd --order=defined spec"
+end
